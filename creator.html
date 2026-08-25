@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creator — Sakthivel Rathinavel</title>
+<meta name="description" content="Sakthivel Rathinavel shares stories, learnings, and design work through YouTube, Instagram, and a blog.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230b0b0d'/%3E%3Ctext x='50' y='66' font-family='Arial' font-weight='700' font-size='48' fill='%23f2f2f4' text-anchor='middle'%3ESR%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Expanded:wght@600;700;800&family=Inter:wght@400;500;600&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css?v=17">
+<script>
+  const AVATAR_ICONS = {
+    instagram: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>',
+    youtube: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>'
+  };
+  function avatarFallback(img, platform) {
+    const fallback = document.createElement('div');
+    fallback.className = 'pc-avatar-fallback';
+    fallback.innerHTML = AVATAR_ICONS[platform] || '';
+    img.replaceWith(fallback);
+  }
+</script>
+</head>
+<body class="theme-green page-main">
+
+<header class="container nav">
+  <a class="back-link" href="index.html">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5m6-6l-6 6 6 6"/></svg>
+    Home
+  </a>
+  <span class="brand">Sakthivel Rathinavel</span>
+</header>
+
+<main class="container">
+
+  <!-- ===== Heading ===== -->
+  <section class="page-hero-big align-left fade-in">
+    <h1 class="page-title-big">Creator</h1>
+    <p class="page-tagline">Shared knowledge is grown knowledge.</p>
+  </section>
+
+  <!-- ===== Find me here ===== -->
+  <section class="section fade-in">
+    <div class="grid-2">
+      <a class="profile-card" href="https://www.instagram.com/sakthi_v0.1/" target="_blank" rel="noopener">
+        <span class="pc-platform">Instagram</span>
+        <div class="pc-avatar">
+          <img src="assets/images/ig-profile.png" alt="" onerror="avatarFallback(this, 'instagram')">
+        </div>
+        <div class="pc-handle">@sakthi_v0.1</div>
+        <p class="pc-desc">Personal brand &amp; short-form content — the informal side of things.</p>
+      </a>
+      <a class="profile-card" href="https://www.youtube.com/@sakthi_v0.1" target="_blank" rel="noopener">
+        <span class="pc-platform">YouTube</span>
+        <div class="pc-avatar">
+          <img src="assets/images/yt-profile.png" alt="" onerror="avatarFallback(this, 'youtube')">
+        </div>
+        <div class="pc-handle">Sakthi</div>
+        <p class="pc-desc">Video essays &amp; lessons on life, discipline &amp; growth.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== Why ===== -->
+  <section class="section fade-in">
+    <h2 class="section-heading">Why</h2>
+    <div class="stack" style="max-width:720px;">
+      <p class="lede lede-sm">I have a strong believe that shared knowledge is grown knowledge. I am someone who
+        is obsessed with stories. From movies to random small videos, I try to find story in everything. The
+        beauty of a good story is that it will keep you hooked and when it finishes, you get something from it.
+        I want to apply the same concept, belonging to entertainment, to education and lifestyle. I want to
+        share my stories and my learnings. I want to be known for good story telling and making human content.</p>
+    </div>
+  </section>
+
+  <!-- ===== Open to work ===== -->
+  <section class="section fade-in">
+    <div class="glass-card accent">
+      <div style="display:flex; gap:20px; align-items:center; flex-wrap:wrap; justify-content:space-between;">
+        <div>
+          <h3 style="font-size:1.05rem; margin-bottom:6px;">Open to design work</h3>
+          <p class="lede" style="font-size:0.92rem;">If you want something designed, I take on a few projects on the side.</p>
+        </div>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a class="btn" href="https://drive.google.com/drive/folders/1h5_0j4Kq5nZpWNVIYQrDJ_tyJNNBJodr?usp=drive_link" target="_blank" rel="noopener">Design portfolio</a>
+          <a class="btn btn-primary" href="mailto:sakthivelrathinavel0@gmail.com">Get in touch</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Experience ===== -->
+  <section class="section fade-in">
+    <h2 class="section-heading">Experience</h2>
+    <div class="glass-card">
+      <div class="exp-item">
+        <div class="exp-header">
+          <span class="exp-title">Graphic Design Intern</span>
+          <span class="exp-date">Apr 2025 – May 2025</span>
+        </div>
+        <div class="exp-org">InAmigos Foundation · Remote</div>
+        <ul>
+          <li>Created 20+ visual assets for social campaigns supporting the foundation's community outreach</li>
+          <li>Collaborated with the communications team to keep brand identity consistent across platforms</li>
+        </ul>
+      </div>
+      <div class="exp-item">
+        <div class="exp-header">
+          <span class="exp-title">Editorial Manager &amp; Head of Design</span>
+          <span class="exp-date">Dec 2023 – May 2026</span>
+        </div>
+        <div class="exp-org">PsyLens E-Magazine, Department of Psychology · PSGCAS</div>
+        <ul>
+          <li>Managed end-to-end production across 4+ issues — content curation, layout, and editorial review</li>
+          <li>Directed a team of student writers and designers, setting editorial standards and workflows</li>
+        </ul>
+      </div>
+      <div class="exp-item">
+        <div class="exp-header">
+          <span class="exp-title">Social Media Manager</span>
+          <span class="exp-date">Oct 2024 – May 2026</span>
+        </div>
+        <div class="exp-org">Department of Psychology (@psy.psgcas) · PSGCAS</div>
+        <ul>
+          <li>Grew audience engagement through consistent, psychology-focused educational content</li>
+          <li>Planned and scheduled the content calendar alongside department faculty</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Skills ===== -->
+  <section class="section fade-in">
+    <h2 class="section-heading">Skills</h2>
+    <div class="chip-row">
+      <span class="chip">Canva</span>
+      <span class="chip">Adobe Premiere Pro</span>
+      <span class="chip">Social Media Management</span>
+      <span class="chip">Content Strategy</span>
+      <span class="chip">Editorial Management</span>
+    </div>
+  </section>
+
+  <!-- ===== DM to collaborate ===== -->
+  <section class="section fade-in">
+    <div class="glass-card accent" style="text-align:center;">
+      <h2 style="font-size:1.3rem; margin-bottom:10px;">DM to collaborate</h2>
+      <p class="lede" style="margin:0 auto 22px; text-align:center;">If you are interested about self improvement and productivity or life in general, let's have a chat.</p>
+      <a class="btn btn-primary" href="mailto:sakthivelrathinavel0@gmail.com">Email me</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span>&copy; <span id="year"></span> Sakthivel Rathinavel</span>
+    <div class="social-row">
+      <a href="index.html">Home</a>
+      <a href="psychology.html">Psychology &amp; HR</a>
+      <a href="founder.html">Founder</a>
+    </div>
+  </footer>
+
+</main>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
