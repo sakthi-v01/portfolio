@@ -12,13 +12,24 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Expanded:wght@600;700;800&family=Inter:wght@400;500;600&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css?v=17">
+<link rel="stylesheet" href="assets/css/style.css?v=25">
 </head>
 <body class="page-main">
 
 <div class="loader" id="loader">
   <div class="loader-bar-track"><div class="loader-bar-fill"></div></div>
 </div>
+
+<button class="mobile-nav-toggle" id="navToggle" aria-label="Open menu">
+  <span></span><span></span><span></span>
+</button>
+<div class="mobile-nav-overlay" id="navOverlay"></div>
+<nav class="mobile-nav-drawer" id="navDrawer">
+  <a href="index.html" class="active">Home</a>
+  <a href="psychology.html">Psychology &amp; HR</a>
+  <a href="founder.html">Founder</a>
+  <a href="creator.html">Creator</a>
+</nav>
 
 <div class="bg-image"></div>
 
@@ -31,8 +42,7 @@
     <div class="hero-full-content">
       <h1 class="hero-name"><span>Sakthivel</span><span>Rathinavel</span></h1>
       <p class="hero-roles">
-        <a href="psychology.html">Psychology</a> &middot; <a href="psychology.html">Human Resource</a> &middot;
-        <a href="founder.html">Founder</a> &middot; <a href="creator.html">Creator</a>
+        <span class="hero-roles-line"><a href="psychology.html">Psychology</a> &middot; <a href="psychology.html">Human Resource</a></span><span class="hero-roles-sep"> &middot; </span><span class="hero-roles-line"><a href="founder.html">Founder</a> &middot; <a href="creator.html">Creator</a></span>
       </p>
 
       <div class="hero-icons">
@@ -149,7 +159,7 @@
 </main>
 
 <script type="module">
-  import { mountSideRays } from './assets/js/side-rays.js';
+  import { mountSideRays } from './assets/js/side-rays.js?v=21';
   mountSideRays(document.getElementById('rays-bg'), {
     speed: 2.5,
     rayColor1: '#ffffff',
@@ -164,7 +174,7 @@
     opacity: 1.0
   });
 </script>
-<script src="assets/js/main.js"></script>
+<script src="assets/js/main.js?v=21"></script>
 <script>
   document.documentElement.style.overflow = 'hidden';
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

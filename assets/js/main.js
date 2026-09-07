@@ -75,3 +75,22 @@ if (contactForm) {
     showToast("Opening your mail app — copied the note too, in case it doesn't open");
   });
 }
+
+// ===== Mobile side nav (hamburger) =====
+const navToggle = document.getElementById('navToggle');
+const navDrawer = document.getElementById('navDrawer');
+const navOverlay = document.getElementById('navOverlay');
+if (navToggle && navDrawer && navOverlay) {
+  const closeNav = () => {
+    navToggle.classList.remove('open');
+    navDrawer.classList.remove('open');
+    navOverlay.classList.remove('open');
+  };
+  navToggle.addEventListener('click', () => {
+    const isOpen = navDrawer.classList.toggle('open');
+    navToggle.classList.toggle('open', isOpen);
+    navOverlay.classList.toggle('open', isOpen);
+  });
+  navOverlay.addEventListener('click', closeNav);
+  navDrawer.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeNav));
+}
