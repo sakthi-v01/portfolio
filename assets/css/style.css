@@ -224,12 +224,6 @@ a { color: inherit; text-decoration: none; }
   border-color: var(--accent);
   box-shadow: 0 0 24px -8px var(--accent);
 }
-.btn-disabled {
-  opacity: 0.55;
-  cursor: default;
-  pointer-events: none;
-}
-
 /* ===== Chips ===== */
 .chip-row { display: flex; flex-wrap: wrap; gap: 10px; }
 .chip {
@@ -239,27 +233,6 @@ a { color: inherit; text-decoration: none; }
   border: 1px solid var(--border);
   background: var(--glass-bg);
   color: var(--text-dim);
-}
-
-/* ===== Badge ===== */
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  padding: 5px 12px;
-  border-radius: 100px;
-  background: var(--accent-glass-hover);
-  border: 1px solid var(--accent-border);
-  color: var(--accent);
-}
-.badge-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 8px var(--accent);
 }
 
 /* ===== Sections ===== */
@@ -314,23 +287,6 @@ a { color: inherit; text-decoration: none; }
   .grid-2 { grid-template-columns: 1fr; }
 }
 
-/* ===== Hero (Main page) ===== */
-.hero {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 40px 0 56px;
-}
-
-.headshot-ring {
-  width: 148px;
-  height: 148px;
-  border-radius: 50%;
-  padding: 3px;
-  background: conic-gradient(from 180deg, var(--red), var(--blue), var(--green), var(--red));
-  margin-bottom: 28px;
-}
 .headshot {
   width: 100%;
   height: 100%;
@@ -340,32 +296,6 @@ a { color: inherit; text-decoration: none; }
   background: var(--bg-elevated);
   border: 3px solid var(--bg);
 }
-.headshot-fallback {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--bg-elevated);
-  border: 3px solid var(--bg);
-  font-family: 'Sora', sans-serif;
-  font-size: 2.2rem;
-  font-weight: 600;
-  color: var(--text-dim);
-}
-
-.hero h1 {
-  font-size: clamp(1.9rem, 4vw, 2.6rem);
-  margin-bottom: 10px;
-}
-
-.hero-tagline {
-  color: var(--text-dim);
-  font-size: 1.05rem;
-  margin-bottom: 18px;
-}
-
 .status-line {
   display: inline-flex;
   align-items: center;
@@ -387,13 +317,6 @@ a { color: inherit; text-decoration: none; }
 @keyframes pulse {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.4; }
-}
-
-.hero-bio {
-  max-width: 620px;
-  color: var(--text-dim);
-  font-size: 1rem;
-  margin-bottom: 8px;
 }
 
 /* ===== Identity cards (Main page) ===== */
@@ -456,23 +379,6 @@ a { color: inherit; text-decoration: none; }
 }
 .identity-card:hover .go svg { transform: translateX(4px); }
 
-/* ===== Contact row (Main page) ===== */
-.contact-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  justify-content: center;
-  margin-top: 44px;
-}
-
-/* ===== Subpage hero ===== */
-.page-hero { padding: 8px 0 20px; }
-.page-hero h1 {
-  font-size: clamp(2rem, 4.5vw, 2.9rem);
-  margin: 16px 0 14px;
-}
-.page-hero .lede { font-size: 1.05rem; }
-
 /* ===== Big subpage hero (name-style title) ===== */
 .page-hero-big {
   padding: 12px 0 24px;
@@ -508,30 +414,6 @@ a { color: inherit; text-decoration: none; }
   margin-bottom: 22px;
 }
 .lede-sm { font-size: 0.94rem; }
-
-/* ===== Experience dot-line list (no card) ===== */
-.exp-line-list { display: flex; flex-direction: column; gap: 18px; }
-.exp-line {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 10px;
-  padding-bottom: 18px;
-  border-bottom: 1px solid var(--border);
-}
-.exp-line:last-child { border-bottom: none; padding-bottom: 0; }
-.exp-line .dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 8px var(--accent);
-  flex-shrink: 0;
-  align-self: center;
-}
-.exp-line-title { font-weight: 600; color: var(--text); font-size: 0.98rem; }
-.exp-line-org { color: var(--text-dim); font-size: 0.88rem; }
-.exp-line-date { color: var(--text-faint); font-size: 0.82rem; margin-left: auto; white-space: nowrap; }
 
 /* ===== Horizontal bar links (projects) ===== */
 .bar-link {
@@ -580,76 +462,6 @@ a { color: inherit; text-decoration: none; }
 .exp-date { color: var(--text-faint); font-size: 0.82rem; white-space: nowrap; }
 .exp-item ul { padding-left: 20px; color: var(--text-dim); font-size: 0.92rem; }
 .exp-item li { margin-bottom: 4px; }
-
-/* ===== Roadmap (Founder page) ===== */
-.roadmap { display: flex; flex-direction: column; gap: 0; }
-.roadmap-step {
-  display: flex;
-  gap: 18px;
-  padding-bottom: 28px;
-  position: relative;
-}
-.roadmap-step:last-child { padding-bottom: 0; }
-.roadmap-step::before {
-  content: "";
-  position: absolute;
-  left: 13px;
-  top: 30px;
-  bottom: 0;
-  width: 1px;
-  background: var(--border);
-}
-.roadmap-step:last-child::before { display: none; }
-.roadmap-num {
-  flex-shrink: 0;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  border: 1px solid var(--accent-border);
-  background: var(--accent-glass);
-  color: var(--accent);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.8rem;
-  font-weight: 600;
-  z-index: 1;
-}
-.roadmap-step.done .roadmap-num {
-  background: var(--accent);
-  color: var(--bg);
-}
-.roadmap-text { padding-top: 3px; }
-.roadmap-text .rt-title { font-weight: 500; color: var(--text); font-size: 0.96rem; }
-.roadmap-text .rt-sub { color: var(--text-faint); font-size: 0.85rem; margin-top: 2px; }
-
-/* ===== Link cards (Creator page) ===== */
-.link-card {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 20px 22px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border);
-  background: var(--glass-bg);
-  transition: all 0.2s ease;
-}
-.link-card:hover {
-  border-color: var(--accent-border);
-  background: var(--accent-glass);
-  transform: translateY(-2px);
-}
-.link-card .icon {
-  width: 40px; height: 40px;
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--accent-glass-hover);
-  color: var(--accent);
-  flex-shrink: 0;
-}
-.link-card .icon svg { width: 20px; height: 20px; }
-.link-card .lc-title { font-weight: 600; font-size: 0.96rem; color: var(--text); }
-.link-card .lc-sub { font-size: 0.8rem; color: var(--text-faint); margin-top: 2px; }
 
 /* ===== Full-page hero ===== */
 .hero-full {
@@ -1275,4 +1087,93 @@ html.nav-open { overflow: hidden; }
   font-size: 0.74rem;
   font-weight: 600;
   letter-spacing: 0.02em;
+}
+
+/* ===== Roadmap timeline (Founder hero) ===== */
+.timeline {
+  position: relative;
+  width: 100%;
+  margin-top: 52px;
+}
+.tl-bar {
+  position: relative;
+  height: 6px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--glass-bg);
+}
+.tl-fill {
+  position: absolute;
+  left: -1px;
+  top: -1px;
+  bottom: -1px;
+  width: 40%;
+  border-radius: 6px;
+  background: linear-gradient(90deg, var(--accent-glass-hover), var(--accent));
+  box-shadow: 0 0 14px -2px var(--accent);
+  will-change: opacity;
+  /* grow once (slowly), then a gentle opacity-only pulse (cheap: no repaint) */
+  animation: tl-grow 3.4s cubic-bezier(0.25, 0.6, 0.25, 1) 0.6s both,
+             tl-flash 3s ease-in-out 4s infinite alternate;
+}
+/* glowing head where the progress currently is */
+.tl-fill::after {
+  content: "";
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  margin-top: -6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.tl-points {
+  position: relative;
+  list-style: none;
+  height: 3.4rem;
+  margin-top: -7px;
+}
+.tl-point {
+  position: absolute;
+  top: 0;
+  left: var(--p);
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+.tl-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #8b8b93;
+}
+.tl-point.is-done .tl-dot { background: var(--accent); }
+.tl-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+@keyframes tl-grow { from { width: 0; } }
+@keyframes tl-flash {
+  from { opacity: 0.6; }
+  to   { opacity: 1; }
+}
+
+@media (max-width: 640px) {
+  .timeline { margin-top: 40px; }
+  .tl-points { height: 4rem; }
+  .tl-name { white-space: normal; max-width: 4.2rem; font-size: 0.8rem; }
+}
+@media (max-width: 360px) {
+  .tl-name { max-width: 3.4rem; font-size: 0.74rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tl-fill { animation: none; }
 }
