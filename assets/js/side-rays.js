@@ -1,4 +1,4 @@
-import { Renderer, Program, Triangle, Mesh } from 'https://esm.sh/ogl@1.0.11';
+import { Renderer, Program, Triangle, Mesh } from './vendor/ogl.mjs';
 
 const hexToRgb = (hex) => {
   const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -83,17 +83,19 @@ void main() {
 
 /**
  * Mounts the SideRays WebGL background into `container`.
- * Only initializes once the container scrolls into view (perf), and tears
- * itself down cleanly on destroy(). Returns a destroy function.
+ * - renders at a lower resolution on phones (it is a full-screen shader)
+ * - pauses when scrolled out of view or when the tab is hidden (battery)
+ * - fails silently (no WebGL / lost context) instead of throwing
+ * Returns a destroy function.
  */
 export function mountSideRays(container, opts = {}) {
   const {
     speed = 2.5,
-    rayColor1 = '#ffffff',
-    rayColor2 = '#ffffff',
+    rayColor1 = "#ffffff",
+    rayColor2 = "#ffffff",
     intensity = 2,
     spread = 2,
-    origin = 'top-right',
+    origin = "top-right",
     tilt = 0,
     saturation = 1.5,
     blend = 0.75,
@@ -101,83 +103,102 @@ export function mountSideRays(container, opts = {}) {
     opacity = 1.0
   } = opts;
 
-  let renderer, mesh, animId, resizeHandler;
+  if (!container) return () => {};
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return () => {};
+  if (navigator.connection && navigator.connection.saveData) return () => {};
 
-  const start = () => {
-    if (!container) return;
+  const dprCap = window.matchMedia("(max-width: 860px)").matches ? 1.25 : 2;
+  const getDpr = () => Math.min(window.devicePixelRatio || 1, dprCap);
 
-    renderer = new Renderer({ dpr: Math.min(window.devicePixelRatio, 2), alpha: true });
-    const gl = renderer.gl;
-    gl.canvas.style.width = '100%';
-    gl.canvas.style.height = '100%';
-    container.appendChild(gl.canvas);
+  let renderer, mesh, uniforms, animId = null, io, resizeHandler, visHandler;
+  let inView = true; // assume visible until the observer says otherwise
+  const isRunning = () => !!renderer && inView && !document.hidden;
 
-    const [flipX, flipY] = originToFlip(origin);
-    const uniforms = {
-      iTime: { value: 0 },
-      iResolution: { value: [1, 1] },
-      iSpeed: { value: speed },
-      iRayColor1: { value: hexToRgb(rayColor1) },
-      iRayColor2: { value: hexToRgb(rayColor2) },
-      iIntensity: { value: intensity },
-      iSpread: { value: spread },
-      iFlipX: { value: flipX },
-      iFlipY: { value: flipY },
-      iTilt: { value: tilt },
-      iSaturation: { value: saturation },
-      iBlend: { value: blend },
-      iFalloff: { value: falloff },
-      iOpacity: { value: opacity }
-    };
+  const loop = (t) => {
+    animId = null;
+    if (!isRunning()) return;
+    uniforms.iTime.value = t * 0.001;
+    try {
+      renderer.render({ scene: mesh });
+      animId = requestAnimationFrame(loop);
+    } catch (e) { /* context lost: stop quietly */ }
+  };
+  const resume = () => { if (isRunning() && animId === null) animId = requestAnimationFrame(loop); };
+  const pause = () => { if (animId !== null) { cancelAnimationFrame(animId); animId = null; } };
 
+  try {
+    renderer = new Renderer({ dpr: getDpr(), alpha: true });
+  } catch (e) {
+    return () => {};
+  }
+  const gl = renderer.gl;
+  gl.canvas.style.width = "100%";
+  gl.canvas.style.height = "100%";
+  gl.canvas.setAttribute("aria-hidden", "true");
+  container.appendChild(gl.canvas);
+
+  const [flipX, flipY] = originToFlip(origin);
+  uniforms = {
+    iTime: { value: 0 },
+    iResolution: { value: [1, 1] },
+    iSpeed: { value: speed },
+    iRayColor1: { value: hexToRgb(rayColor1) },
+    iRayColor2: { value: hexToRgb(rayColor2) },
+    iIntensity: { value: intensity },
+    iSpread: { value: spread },
+    iFlipX: { value: flipX },
+    iFlipY: { value: flipY },
+    iTilt: { value: tilt },
+    iSaturation: { value: saturation },
+    iBlend: { value: blend },
+    iFalloff: { value: falloff },
+    iOpacity: { value: opacity }
+  };
+
+  try {
     const geometry = new Triangle(gl);
     const program = new Program(gl, { vertex: VERT, fragment: FRAG, uniforms });
     mesh = new Mesh(gl, { geometry, program });
-
-    const updateSize = () => {
-      if (!container || !renderer) return;
-      renderer.dpr = Math.min(window.devicePixelRatio, 2);
-      const { clientWidth: w, clientHeight: h } = container;
-      renderer.setSize(w, h);
-      uniforms.iResolution.value = [w * renderer.dpr, h * renderer.dpr];
-    };
-
-    const loop = (t) => {
-      if (!renderer || !mesh) return;
-      uniforms.iTime.value = t * 0.001;
-      try {
-        renderer.render({ scene: mesh });
-        animId = requestAnimationFrame(loop);
-      } catch (e) { /* context lost */ }
-    };
-
-    resizeHandler = updateSize;
-    window.addEventListener('resize', resizeHandler);
-    updateSize();
-    animId = requestAnimationFrame(loop);
-  };
-
-  const teardownGL = () => {
-    if (animId) cancelAnimationFrame(animId);
-    animId = null;
-    if (resizeHandler) window.removeEventListener('resize', resizeHandler);
-    if (renderer) {
-      try {
-        const loseCtx = renderer.gl.getExtension('WEBGL_lose_context');
-        if (loseCtx) loseCtx.loseContext();
-        const canvas = renderer.gl.canvas;
-        if (canvas && canvas.parentNode) canvas.parentNode.removeChild(canvas);
-      } catch (e) {}
-    }
+  } catch (e) {
+    if (gl.canvas.parentNode) gl.canvas.parentNode.removeChild(gl.canvas);
     renderer = null;
-    mesh = null;
-  };
-
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     return () => {};
   }
 
-  start();
+  const updateSize = () => {
+    if (!renderer) return;
+    renderer.dpr = getDpr();
+    const { clientWidth: w, clientHeight: h } = container;
+    renderer.setSize(w, h);
+    uniforms.iResolution.value = [w * renderer.dpr, h * renderer.dpr];
+  };
+  resizeHandler = updateSize;
+  window.addEventListener("resize", resizeHandler);
+  updateSize();
 
-  return teardownGL;
+  if ("IntersectionObserver" in window) {
+    io = new IntersectionObserver((entries) => {
+      inView = entries[0].isIntersecting;
+      inView ? resume() : pause();
+    }, { threshold: 0 });
+    io.observe(container);
+  }
+  visHandler = () => (document.hidden ? pause() : resume());
+  document.addEventListener("visibilitychange", visHandler);
+
+  resume();
+
+  return () => {
+    pause();
+    if (io) io.disconnect();
+    window.removeEventListener("resize", resizeHandler);
+    document.removeEventListener("visibilitychange", visHandler);
+    try {
+      const lose = renderer.gl.getExtension("WEBGL_lose_context");
+      if (lose) lose.loseContext();
+      if (gl.canvas.parentNode) gl.canvas.parentNode.removeChild(gl.canvas);
+    } catch (e) {}
+    renderer = null;
+    mesh = null;
+  };
 }
