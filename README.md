@@ -2,7 +2,7 @@
 
 Personal portfolio of **Sakthivel Rathinavel** — Psychology (HRDM) · Founder of Oazis · Creator.
 
-**Live:** https://sakthi-v01.github.io/portfolio/
+**Live:** https://sakthivel.me/
 
 Plain HTML / CSS / JavaScript — no framework, no build step. Edit a file, refresh, done.
 
