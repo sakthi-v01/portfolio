@@ -639,6 +639,8 @@ a { color: inherit; text-decoration: none; }
   text-align: center;
 }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
+.toast.has-action { pointer-events: auto; border-radius: 18px; line-height: 1.5; }
+.toast a { color: var(--text); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
 
 /* ===== Contact ===== */
 .contact-grid {

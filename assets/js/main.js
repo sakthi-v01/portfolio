@@ -22,7 +22,7 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 // ===== Toast =====
 let toastTimer;
-function showToast(message) {
+function showToast(message, action, duration = 4200) {
   let toast = document.getElementById('toast');
   if (!toast) {
     toast = document.createElement('div');
@@ -33,10 +33,42 @@ function showToast(message) {
     document.body.appendChild(toast);
   }
   toast.textContent = message;
+  if (action) {
+    const link = document.createElement('a');
+    link.href = action.href;
+    link.target = '_blank';
+    link.rel = 'noopener';
+    link.textContent = action.label;
+    toast.append(' ', link);
+  }
+  toast.classList.toggle('has-action', Boolean(action));
   toast.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.classList.remove('show'), 4200);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), duration);
 }
+
+// ===== Email links =====
+// A mailto: link silently does nothing on a device with no mail app set up. If nothing took focus
+// shortly after the click, copy the address and offer Gmail in the browser instead.
+document.querySelectorAll('a[href^="mailto:"]').forEach((link) => {
+  link.addEventListener('click', () => {
+    const url = new URL(link.href);
+    const to = decodeURIComponent(url.pathname);
+    const subject = url.searchParams.get('subject') || '';
+    let left = false;
+    const leave = () => { left = true; };
+    window.addEventListener('blur', leave, { once: true });
+    document.addEventListener('visibilitychange', leave, { once: true });
+    setTimeout(() => {
+      window.removeEventListener('blur', leave);
+      document.removeEventListener('visibilitychange', leave);
+      if (left) return;
+      if (navigator.clipboard) navigator.clipboard.writeText(to).catch(() => {});
+      const gmail = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(to)}&su=${encodeURIComponent(subject)}`;
+      showToast(`No mail app opened. ${to} is copied.`, { label: 'Open in Gmail', href: gmail }, 9000);
+    }, 1500);
+  });
+});
 
 // ===== Contact form ("Let's talk") =====
 // If the <form> has a data-endpoint (e.g. a Formspree URL), the message is delivered
