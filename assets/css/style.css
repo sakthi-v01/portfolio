@@ -416,8 +416,8 @@ a { color: inherit; text-decoration: none; }
 }
 .lede-sm { font-size: 0.94rem; }
 
-/* ===== Horizontal bar links (projects) ===== */
-.bar-link {
+/* ===== Project blocks (Psychology page): static cards with a small "Ask about this" email button ===== */
+.project-block {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -426,23 +426,26 @@ a { color: inherit; text-decoration: none; }
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
   background: var(--glass-bg);
-  transition: all 0.2s ease;
 }
-.bar-link:hover {
-  border-color: var(--accent-border);
-  background: var(--accent-glass);
-  transform: translateX(4px);
-}
-.bar-link .bl-text { min-width: 0; }
-.bar-link .bl-title {
+.project-block .pb-text { min-width: 0; }
+.project-block .pb-title {
   font-weight: 600;
   color: var(--text);
   font-size: 0.98rem;
   margin-bottom: 5px;
 }
-.bar-link .bl-sub { color: var(--text-faint); font-size: 0.85rem; }
-.bar-link .bl-arrow { flex-shrink: 0; color: var(--accent); }
-.bar-link .bl-arrow svg { width: 18px; height: 18px; }
+.project-block .pb-sub { color: var(--text-faint); font-size: 0.85rem; }
+.btn-sm {
+  flex-shrink: 0;
+  padding: 8px 16px;
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+@media (pointer: coarse) { .btn-sm { min-height: 44px; } }
+@media (max-width: 640px) {
+  .project-block { flex-direction: column; align-items: stretch; gap: 14px; padding: 20px; }
+  .project-block .btn-sm { align-self: flex-end; }
+}
 
 /* ===== Experience list ===== */
 .exp-item {
@@ -1076,20 +1079,6 @@ html.nav-open { overflow: hidden; }
     padding-left: 24px;
     padding-right: 24px;
   }
-}
-
-/* Research papers are private on purpose — flag it so "request access" isn't a surprise */
-.bar-link .bl-tag {
-  display: inline-block;
-  margin-top: 8px;
-  padding: 3px 10px;
-  border: 1px solid var(--accent-border);
-  border-radius: 100px;
-  background: var(--accent-glass);
-  color: var(--accent);
-  font-size: 0.74rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
 }
 
 /* ===== Roadmap timeline (Founder hero) ===== */
